@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+}
+
+group 'org.oobootcamp'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.projectlombok:lombok:1.18.20'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    testImplementation 'org.assertj:assertj-core:3.22.0'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+        afterSuite { desc, result ->
+            if (!desc.parent) {
+                def output = " Result: ${result.resultType} " +
+                        "(${result.testCount} Tests, " +
+                        "${result.successfulTestCount} Successes, " +
+                        "${result.failedTestCount} Failures, " +
+                        "${result.skippedTestCount} Skipped) "
+                println('\n' + ('-' * output.length()) + '\n' + output + '\n' + ('-' * output.length()))
+            }
+        }
+    }
+}
