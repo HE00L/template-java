@@ -32,7 +32,7 @@
 
 ### Example
 
-- Given 有票,票对应的车已经被取 When 普通停车用户自助取车, Then 普通停车用户 取车失败，提示票无效
+- Given 有票,票无效 When 普通停车用户自助取车, Then 普通停车用户 取车失败，提示票无效
 
 ## AC：无票，普通停车用户 取车失败
 
@@ -57,6 +57,8 @@
         - `remainingCount` -> int
         - `capacity`-> int
         - `parkingTiles<ParkingTile>` -> Array
+        - method: `parkingCar(Car car) ` -> return Ticket
+        - method: `pickUpCar(Ticket ticket) ` -> return Car
     - Ticket
         - `id` -> int
     - ParkingTile

@@ -51,7 +51,11 @@ public class ParkingLot {
         return parkedTiles.filter(tile -> tile.getTicket().id() == ticket.id()).get();
     }
 
-    private boolean isFull() {
+    protected boolean isFull() {
         return remainingCount == 0;
+    }
+
+    protected int hasTiles() {
+        return remainingCount;
     }
 }
