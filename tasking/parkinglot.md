@@ -45,6 +45,7 @@
 ## Package
 
 - domain
+- exception
 - util*
 
 ## Class
@@ -53,12 +54,15 @@
     - Car
         - `id` -> int
     - ParkingLot
-        - `id` -> int
         - `remainingCount` -> int
+        - `capacity`-> int
         - `parkingTiles<ParkingTile>` -> Array
     - Ticket
         - `id` -> int
     - ParkingTile
-        - `id` -> int
-        - `ticket_id`  -> int
+        - `ticket`  -> ticket
         - `car`  -> car
+- Exception
+    - Constant
+    - PickUpCarException -> extends RuntimeException
+    - ParkCarException -> extends RuntimeException
