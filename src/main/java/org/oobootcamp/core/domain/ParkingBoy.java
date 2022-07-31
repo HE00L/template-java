@@ -8,7 +8,10 @@ import java.util.function.Predicate;
 
 public record ParkingBoy(List<ParkingLot> parkingLots) {
     public Ticket parkingCar(Car car) {
-        return parkingLots.filter(parkingLot -> !parkingLot.isFull()).getOrElseThrow(ParkCarException::new).parkingCar(car);
+        return parkingLots
+                .filter(this::findNotFullParkingLot)
+                .getOrElseThrow(ParkCarException::new)
+                .parkingCar(car);
     }
 
     public Car pickUpCar(Ticket ticket) {
@@ -17,6 +20,10 @@ public record ParkingBoy(List<ParkingLot> parkingLots) {
                 .peekOption()
                 .map(parkingLot -> parkingLot.pickUpCar(ticket))
                 .getOrElseThrow(PickUpCarException::new);
+    }
+
+    private Boolean findNotFullParkingLot(ParkingLot parkingLot) {
+        return !parkingLot.isFull();
     }
 
     private Predicate<ParkingLot> findParkingLotByTicket(Ticket ticket) {
