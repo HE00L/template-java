@@ -64,7 +64,7 @@ public class ParkingLotTest {
         Ticket ticket = parkingLot.parkingCar(car);
         parkingLot.parkingCar(car2);
         assertThat(parkingLot.pickUpCar(ticket)).isEqualTo(car);
-        assertThrows(RuntimeException.class, () -> parkingLot.pickUpCar(ticket));
+        assertThat(assertThrows(PickUpCarException.class, () -> parkingLot.pickUpCar(ticket)).getLocalizedMessage()).isEqualTo("取车失败");
     }
 
     // - Given 无票, When 普通停车用户自助取车, Then 普通停车用户 取车失败

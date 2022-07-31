@@ -2,6 +2,7 @@ package org.oobootcamp.core.domain;
 
 import io.vavr.collection.HashSet;
 import io.vavr.collection.Set;
+import io.vavr.control.Option;
 import io.vavr.control.Try;
 import org.oobootcamp.core.exception.ParkCarException;
 import org.oobootcamp.core.exception.PickUpCarException;
@@ -37,8 +38,7 @@ public class ParkingLot {
     private Car pickUp(Ticket ticket) {
         if (remainingCount == capacity)
             throw new PickUpCarException();
-        ParkingTile tile = findParkingTileByTicket(ticket);
-        return freeTile(tile);
+        return findParkingTileByTicket(ticket).map(this::freeTile).getOrElseThrow(ParkCarException::new);
     }
 
     private Car freeTile(ParkingTile tile) {
@@ -47,8 +47,8 @@ public class ParkingLot {
         return tile.getCar();
     }
 
-    private ParkingTile findParkingTileByTicket(Ticket ticket) {
-        return parkedTiles.filter(tile -> tile.getTicket().id() == ticket.id()).get();
+    protected Option<ParkingTile> findParkingTileByTicket(Ticket ticket) {
+        return parkedTiles.find(tile -> tile.getTicket().equals(ticket));
     }
 
     protected boolean isFull() {
