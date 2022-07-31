@@ -15,14 +15,14 @@ public class ParkingLotTest {
     public void should_return_ticket_when_parking_car_given_parking_lot_has_one_space() {
         ParkingLot parkingLot = new ParkingLot(1);
         Car car = new Car(1);
-        assertThat(parkingLot.parkingCar(car)).isEqualTo(new Ticket(car.hashCode()));
+        assertThat(parkingLot.parkingCar(car)).isEqualTo(new Ticket(car.id()));
     }
 
     @Test
     public void should_return_ticket_when_parking_car_given_parking_lot_has_two_space() {
         ParkingLot parkingLot = new ParkingLot(2);
         Car car = new Car(1);
-        assertThat(parkingLot.parkingCar(car)).isEqualTo(new Ticket(car.hashCode()));
+        assertThat(parkingLot.parkingCar(car)).isEqualTo(new Ticket(car.id()));
     }
 
     //- Given 停车场没有空位, When 普通停车用户自助停车, Then 普通停车用户 停车失败，提示停车失败
@@ -43,7 +43,6 @@ public class ParkingLotTest {
         Car car = new Car(1);
         Ticket ticket = parkingLot.parkingCar(car);
         assertThat(parkingLot.pickUpCar(ticket)).isEqualTo(car);
-        assertThat(car.id()).isEqualTo(ticket.id());
     }
 
     @Test
@@ -52,7 +51,6 @@ public class ParkingLotTest {
         Car car = new Car(2);
         Ticket ticket = parkingLot.parkingCar(car);
         assertThat(parkingLot.pickUpCar(ticket)).isEqualTo(car);
-        assertThat(car.id()).isEqualTo(ticket.id());
     }
 
     //- Given 有票,票对应的车已经被取 When 普通停车用户自助取车, Then 普通停车用户 取车失败，提示票无效

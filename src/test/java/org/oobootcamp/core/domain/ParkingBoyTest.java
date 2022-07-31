@@ -22,6 +22,7 @@ public class ParkingBoyTest {
 
         ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
 
+        assertThat(firstParkingLot.hasTiles()).isEqualTo(2);
         assertThat(parkingBoy.parkingCar(car)).isEqualTo(new Ticket(car.id()));
         assertThat(firstParkingLot.hasTiles()).isEqualTo(1);
     }
@@ -38,6 +39,7 @@ public class ParkingBoyTest {
         ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
 
         firstParkingLot.parkingCar(car1);
+        assertThat(secondParkingLot.hasTiles()).isEqualTo(2);
         assertThat(parkingBoy.parkingCar(car2)).isEqualTo(new Ticket(car2.id()));
         assertThat(secondParkingLot.hasTiles()).isEqualTo(1);
     }
