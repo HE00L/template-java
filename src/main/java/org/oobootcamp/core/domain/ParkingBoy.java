@@ -9,15 +9,14 @@ import java.util.function.Predicate;
 public record ParkingBoy(List<ParkingLot> parkingLots) {
     public Ticket parkingCar(Car car) {
         return parkingLots
-                .filter(this::findNotFullParkingLot)
-                .getOrElseThrow(ParkCarException::new)
-                .parkingCar(car);
+                .find(this::findNotFullParkingLot)
+                .map(parkingLot -> parkingLot.parkingCar(car))
+                .getOrElseThrow(ParkCarException::new);
     }
 
     public Car pickUpCar(Ticket ticket) {
         return parkingLots
-                .filter(findParkingLotByTicket(ticket))
-                .peekOption()
+                .find(findParkingLotByTicket(ticket))
                 .map(parkingLot -> parkingLot.pickUpCar(ticket))
                 .getOrElseThrow(PickUpCarException::new);
     }
