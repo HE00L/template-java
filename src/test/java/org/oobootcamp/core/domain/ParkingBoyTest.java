@@ -60,7 +60,7 @@ public class ParkingBoyTest {
         firstParkingLot.parkingCar(car1);
         secondParkingLot.parkingCar(car2);
 
-        assertThat(assertThrows(ParkCarException.class, () -> parkingBoy.parkingCar(car3)).getLocalizedMessage()).isEqualTo("停车失败");
+        assertThat(assertThrows(ParkCarException.class, () -> parkingBoy.parkingCar(car3)).getLocalizedMessage()).isEqualTo("停车场已满");
     }
 
     //    - Given 停车小弟 管理2个停车场,小弟有一张有效票,票是第一个停车场的 When 停车小弟 取车, Then 取车成功
@@ -110,7 +110,7 @@ public class ParkingBoyTest {
         Ticket firstParkingLotTicket = parkingBoy.parkingCar(car);
 
         assertThat(parkingBoy.pickUpCar(firstParkingLotTicket)).isEqualTo(car);
-        assertThat(assertThrows(PickUpCarException.class, () -> parkingBoy.pickUpCar(firstParkingLotTicket)).getLocalizedMessage()).isEqualTo("取车失败");
+        assertThat(assertThrows(PickUpCarException.class, () -> parkingBoy.pickUpCar(firstParkingLotTicket)).getLocalizedMessage()).isEqualTo("票无效");
     }
 
     @Test
@@ -125,6 +125,6 @@ public class ParkingBoyTest {
 
         parkingBoy.parkingCar(car);
 
-        assertThat(assertThrows(PickUpCarException.class, () -> parkingBoy.pickUpCar(null)).getLocalizedMessage()).isEqualTo("取车失败");
+        assertThat(assertThrows(PickUpCarException.class, () -> parkingBoy.pickUpCar(null)).getLocalizedMessage()).isEqualTo("票无效");
     }
 }
