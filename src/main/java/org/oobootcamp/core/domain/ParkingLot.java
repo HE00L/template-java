@@ -8,6 +8,7 @@ import org.oobootcamp.core.exception.ParkCarException;
 import org.oobootcamp.core.exception.PickUpCarException;
 
 public class ParkingLot {
+    public static final int NO_REMAINING = 0;
     private Set<ParkingTile> parkedTiles;
     private int remainingCount;
     private final int capacity;
@@ -52,7 +53,7 @@ public class ParkingLot {
     }
 
     protected boolean isFull() {
-        return remainingCount == 0;
+        return remainingCount == NO_REMAINING;
     }
 
     protected int hasTiles() {
