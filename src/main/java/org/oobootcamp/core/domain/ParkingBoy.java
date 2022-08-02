@@ -6,7 +6,13 @@ import org.oobootcamp.core.exception.PickUpCarException;
 
 import java.util.function.Predicate;
 
-public record ParkingBoy(List<ParkingLot> parkingLots) {
+public class ParkingBoy {
+    protected final List<ParkingLot> parkingLots;
+
+    public ParkingBoy(List<ParkingLot> parkingLots) {
+        this.parkingLots = parkingLots;
+    }
+
     public Ticket parkingCar(Car car) {
         return parkingLots
                 .find(this::findNotFullParkingLot)
