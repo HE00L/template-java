@@ -2,8 +2,6 @@ package org.oobootcamp.core.domain;
 
 import io.vavr.collection.List;
 
-import java.util.Comparator;
-
 public class SmartParkingBoy extends ParkingBoy {
 
     public SmartParkingBoy(List<ParkingLot> parkingLots) {
