@@ -14,7 +14,7 @@ public class SmartParkingBoy extends ParkingBoy {
     @Override
     public Ticket parkingCar(Car car) {
         return parkingLots
-                .maxBy(Comparator.comparingInt(ParkingLot::getUsefulTilesCount))
+                .maxBy(Comparator.comparingInt(ParkingLot::getUsefulTilesRemaining))
                 .map(parkingLot -> parkingLot.parkingCar(car))
                 .getOrElseThrow(ParkCarException::new);
     }

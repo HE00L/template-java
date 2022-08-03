@@ -27,7 +27,7 @@ public class ParkingLot {
 
     private Ticket ParkAndGetTicket(Car car) {
         remainingCount--;
-        Ticket ticket = new Ticket(car.id());
+        Ticket ticket = new Ticket();
         parkedTiles = parkedTiles.add(new ParkingTile(ticket, car));
         return ticket;
     }
@@ -56,7 +56,7 @@ public class ParkingLot {
         return remainingCount == NO_REMAINING;
     }
 
-    protected int getUsefulTilesCount() {
+    protected int getUsefulTilesRemaining() {
         return remainingCount;
     }
 }

@@ -18,11 +18,11 @@ public class SmartParkingBoyTest {
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
         SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
 
-        firstParkingLot.parkingCar(new Car(1));
-        Car car = new Car(2);
-        Ticket expectedTicket = new Ticket(car.id());
+        firstParkingLot.parkingCar(new Car());
+        Car car = new Car();
+        Ticket expectedTicket = smartParkingBoy.parkingCar(car);
 
-        assertThat(smartParkingBoy.parkingCar(car)).isEqualTo(expectedTicket);
+        assertThat(expectedTicket).isNotNull();
         assertThat(secondParkingLot.pickUpCar(expectedTicket)).isEqualTo(car);
     }
 
@@ -34,11 +34,11 @@ public class SmartParkingBoyTest {
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
         SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
 
-        secondParkingLot.parkingCar(new Car(1));
-        Car car = new Car(2);
-        Ticket expectedTicket = new Ticket(car.id());
+        secondParkingLot.parkingCar(new Car());
+        Car car = new Car();
+        Ticket expectedTicket = smartParkingBoy.parkingCar(car);
 
-        assertThat(smartParkingBoy.parkingCar(car)).isEqualTo(expectedTicket);
+        assertThat(expectedTicket).isNotNull();
         assertThat(firstParkingLot.pickUpCar(expectedTicket)).isEqualTo(car);
     }
 
@@ -51,10 +51,10 @@ public class SmartParkingBoyTest {
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot, thirdParkingLot);
         SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
 
-        Car car = new Car(1);
-        Ticket expectedTicket = new Ticket(car.id());
+        Car car = new Car();
+        Ticket expectedTicket = smartParkingBoy.parkingCar(car);
 
-        assertThat(smartParkingBoy.parkingCar(car)).isEqualTo(expectedTicket);
+        assertThat(expectedTicket).isNotNull();
         assertThat(thirdParkingLot.pickUpCar(expectedTicket)).isEqualTo(car);
     }
 
@@ -64,14 +64,14 @@ public class SmartParkingBoyTest {
         ParkingLot firstParkingLot = new ParkingLot(2);
         ParkingLot secondParkingLot = new ParkingLot(2);
         ParkingLot thirdParkingLot = new ParkingLot(2);
-        thirdParkingLot.parkingCar(new Car(1));
+        thirdParkingLot.parkingCar(new Car());
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot, thirdParkingLot);
         SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
 
-        Car car = new Car(2);
-        Ticket expectedTicket = new Ticket(car.id());
+        Car car = new Car();
+        Ticket expectedTicket = smartParkingBoy.parkingCar(car);
 
-        assertThat(smartParkingBoy.parkingCar(car)).isEqualTo(expectedTicket);
+        assertThat(expectedTicket).isNotNull();
         assertThat(firstParkingLot.pickUpCar(expectedTicket)).isEqualTo(car);
     }
 
@@ -81,14 +81,14 @@ public class SmartParkingBoyTest {
         ParkingLot firstParkingLot = new ParkingLot(2);
         ParkingLot secondParkingLot = new ParkingLot(2);
         ParkingLot thirdParkingLot = new ParkingLot(2);
-        firstParkingLot.parkingCar(new Car(1));
+        firstParkingLot.parkingCar(new Car());
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot, thirdParkingLot);
         SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
 
-        Car car = new Car(2);
-        Ticket expectedTicket = new Ticket(car.id());
+        Car car = new Car();
+        Ticket expectedTicket = smartParkingBoy.parkingCar(car);
 
-        assertThat(smartParkingBoy.parkingCar(car)).isEqualTo(expectedTicket);
+        assertThat(expectedTicket).isNotNull();
         assertThat(secondParkingLot.pickUpCar(expectedTicket)).isEqualTo(car);
     }
 
@@ -100,12 +100,9 @@ public class SmartParkingBoyTest {
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
         SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
 
-        Car car1 = new Car(1);
-        Car car2 = new Car(2);
-        firstParkingLot.parkingCar(car1);
-        secondParkingLot.parkingCar(car2);
+        firstParkingLot.parkingCar(new Car());
+        secondParkingLot.parkingCar(new Car());
 
-        Car car3 = new Car(3);
-        assertThat(assertThrows(ParkCarException.class, () -> smartParkingBoy.parkingCar(car3)).getLocalizedMessage()).isEqualTo("停车场已满");
+        assertThat(assertThrows(ParkCarException.class, () -> smartParkingBoy.parkingCar(new Car())).getLocalizedMessage()).isEqualTo("停车场已满");
     }
 }
