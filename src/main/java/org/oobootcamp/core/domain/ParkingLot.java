@@ -56,7 +56,7 @@ public class ParkingLot {
         return remainingCount == NO_REMAINING;
     }
 
-    protected int getTilesCount() {
+    protected int getUsefulTilesCount() {
         return remainingCount;
     }
 }
