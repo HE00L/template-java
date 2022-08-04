@@ -25,15 +25,19 @@ public class ParkingLot {
         return ParkAndGetTicket(car);
     }
 
-    private Ticket ParkAndGetTicket(Car car) {
+    public Car pickUpCar(Ticket ticket) {
+        return Try.of(() -> pickUp(ticket)).getOrElseThrow(PickUpCarException::new);
+    }
+
+    public int getUsefulTilesRemaining() {
+        return remainingCount;
+    }
+
+    protected Ticket ParkAndGetTicket(Car car) {
         remainingCount--;
         Ticket ticket = new Ticket();
         parkedTiles = parkedTiles.add(new ParkingTile(ticket, car));
         return ticket;
-    }
-
-    public Car pickUpCar(Ticket ticket) {
-        return Try.of(() -> pickUp(ticket)).getOrElseThrow(PickUpCarException::new);
     }
 
     private Car pickUp(Ticket ticket) {
@@ -54,9 +58,5 @@ public class ParkingLot {
 
     protected boolean isFull() {
         return remainingCount == NO_REMAINING;
-    }
-
-    protected int getUsefulTilesRemaining() {
-        return remainingCount;
     }
 }
