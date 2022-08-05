@@ -16,7 +16,7 @@ public class SmartParkingBoyTest {
         ParkingLot firstParkingLot = new ParkingLot(2);
         ParkingLot secondParkingLot = new ParkingLot(2);
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
-        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+        ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
 
         firstParkingLot.parkingCar(new Car());
         Car car = new Car();
@@ -32,7 +32,7 @@ public class SmartParkingBoyTest {
         ParkingLot firstParkingLot = new ParkingLot(2);
         ParkingLot secondParkingLot = new ParkingLot(2);
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
-        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+        ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
 
         secondParkingLot.parkingCar(new Car());
         Car car = new Car();
@@ -49,7 +49,7 @@ public class SmartParkingBoyTest {
         ParkingLot secondParkingLot = new ParkingLot(1);
         ParkingLot thirdParkingLot = new ParkingLot(2);
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot, thirdParkingLot);
-        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+        ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
 
         Car car = new Car();
         Ticket expectedTicket = smartParkingBoy.parkingCar(car);
@@ -66,7 +66,7 @@ public class SmartParkingBoyTest {
         ParkingLot thirdParkingLot = new ParkingLot(2);
         thirdParkingLot.parkingCar(new Car());
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot, thirdParkingLot);
-        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+        ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
 
         Car car = new Car();
         Ticket expectedTicket = smartParkingBoy.parkingCar(car);
@@ -83,7 +83,7 @@ public class SmartParkingBoyTest {
         ParkingLot thirdParkingLot = new ParkingLot(2);
         firstParkingLot.parkingCar(new Car());
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot, thirdParkingLot);
-        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+        ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
 
         Car car = new Car();
         Ticket expectedTicket = smartParkingBoy.parkingCar(car);
@@ -98,7 +98,7 @@ public class SmartParkingBoyTest {
         ParkingLot firstParkingLot = new ParkingLot(1);
         ParkingLot secondParkingLot = new ParkingLot(1);
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
-        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+        ParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
 
         firstParkingLot.parkingCar(new Car());
         secondParkingLot.parkingCar(new Car());

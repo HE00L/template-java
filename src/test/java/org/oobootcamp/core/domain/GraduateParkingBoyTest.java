@@ -16,7 +16,7 @@ public class GraduateParkingBoyTest {
         ParkingLot firstParkingLot = new ParkingLot(2);
         ParkingLot secondParkingLot = new ParkingLot(2);
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
-        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
+        ParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
 
         Car car = new Car();
         Ticket expectedTicket = graduateParkingBoy.parkingCar(car);
@@ -31,7 +31,7 @@ public class GraduateParkingBoyTest {
         ParkingLot firstParkingLot = new ParkingLot(1);
         ParkingLot secondParkingLot = new ParkingLot(2);
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
-        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
+        ParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
 
         Car car1 = new Car();
         firstParkingLot.parkingCar(car1);
@@ -48,7 +48,7 @@ public class GraduateParkingBoyTest {
         ParkingLot firstParkingLot = new ParkingLot(1);
         ParkingLot secondParkingLot = new ParkingLot(1);
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
-        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
+        ParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
 
         Car car1 = new Car();
         Car car2 = new Car();
@@ -65,7 +65,7 @@ public class GraduateParkingBoyTest {
         ParkingLot firstParkingLot = new ParkingLot(2);
         ParkingLot secondParkingLot = new ParkingLot(2);
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
-        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
+        ParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
 
         Car car = new Car();
         Ticket firstParkingLotTicket = graduateParkingBoy.parkingCar(car);
@@ -79,7 +79,7 @@ public class GraduateParkingBoyTest {
         ParkingLot firstParkingLot = new ParkingLot(2);
         ParkingLot secondParkingLot = new ParkingLot(2);
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
-        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
+        ParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
 
         Car car = new Car();
         Ticket secondParkingLotTicket = secondParkingLot.parkingCar(car);
@@ -97,7 +97,7 @@ public class GraduateParkingBoyTest {
 
         ParkingLot thirdParkingLot = new ParkingLot(1);
         Ticket thirdTicket = thirdParkingLot.parkingCar(car);
-        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
+        ParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
 
         assertThat(assertThrows(PickUpCarException.class, () -> graduateParkingBoy.pickUpCar(thirdTicket)).getLocalizedMessage()).isEqualTo("票无效");
     }
@@ -110,7 +110,7 @@ public class GraduateParkingBoyTest {
         ParkingLot secondParkingLot = new ParkingLot(2);
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
 
-        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
+        ParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
         Ticket firstParkingLotTicket = graduateParkingBoy.parkingCar(car);
 
         assertThat(graduateParkingBoy.pickUpCar(firstParkingLotTicket)).isEqualTo(car);
@@ -123,7 +123,7 @@ public class GraduateParkingBoyTest {
         ParkingLot firstParkingLot = new ParkingLot(2);
         ParkingLot secondParkingLot = new ParkingLot(2);
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
-        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
+        ParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
         assertThat(assertThrows(PickUpCarException.class, () -> graduateParkingBoy.pickUpCar(null)).getLocalizedMessage()).isEqualTo("票无效");
     }
 }

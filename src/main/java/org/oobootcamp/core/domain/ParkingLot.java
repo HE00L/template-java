@@ -41,7 +41,7 @@ public class ParkingLot {
     }
 
     private Car pickUp(Ticket ticket) {
-        if (remainingCount == capacity)
+        if (isEmpty())
             throw new PickUpCarException();
         return findParkingTileByTicket(ticket).map(this::freeTile).getOrElseThrow(ParkCarException::new);
     }
@@ -58,5 +58,9 @@ public class ParkingLot {
 
     protected boolean isFull() {
         return remainingCount == NO_REMAINING;
+    }
+
+    private boolean isEmpty() {
+        return remainingCount == capacity;
     }
 }
