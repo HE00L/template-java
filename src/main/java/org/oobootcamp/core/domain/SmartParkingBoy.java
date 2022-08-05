@@ -5,7 +5,7 @@ import io.vavr.control.Option;
 
 import java.util.Comparator;
 
-public class SmartParkingBoy extends AbstractParkingBoy {
+public class SmartParkingBoy extends ParkingBoy {
 
     public SmartParkingBoy(List<ParkingLot> parkingLots) {
         super(parkingLots);

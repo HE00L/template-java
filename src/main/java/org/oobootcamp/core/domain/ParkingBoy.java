@@ -10,12 +10,10 @@ import io.vavr.control.Option;
 import org.oobootcamp.core.exception.ParkingLotFullException;
 import org.oobootcamp.core.exception.InvalidTicketException;
 
-import java.util.function.Predicate;
-
-public abstract class AbstractParkingBoy {
+public abstract class ParkingBoy {
     protected final List<ParkingLot> parkingLots;
 
-    protected AbstractParkingBoy(List<ParkingLot> parkingLots) {
+    protected ParkingBoy(List<ParkingLot> parkingLots) {
         this.parkingLots = parkingLots;
     }
 
@@ -24,14 +22,11 @@ public abstract class AbstractParkingBoy {
     }
 
     public Car pickUpCar(Ticket ticket) {
-        return this.parkingLots.find(findParkingLotByTicket(ticket))
+        return this.parkingLots.find((parkingLot1) -> parkingLot1.hasCarByTicket(ticket))
                 .map((parkingLot) -> parkingLot.pickUpCar(ticket))
                 .getOrElseThrow(InvalidTicketException::new);
     }
 
     abstract Option<ParkingLot> findAvailableParkingLot();
 
-    private Predicate<ParkingLot> findParkingLotByTicket(Ticket ticket) {
-        return (parkingLot) -> parkingLot.findCarByTicket(ticket);
-    }
 }

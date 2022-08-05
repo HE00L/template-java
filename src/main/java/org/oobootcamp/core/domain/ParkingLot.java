@@ -25,7 +25,7 @@ public class ParkingLot {
     }
 
     public Car pickUpCar(Ticket ticket) {
-        if (isEmpty() || !findCarByTicket(ticket))
+        if (isEmpty() || !hasCarByTicket(ticket))
             throw new InvalidTicketException();
         return ticketCarMap.remove(ticket);
     }
@@ -34,7 +34,7 @@ public class ParkingLot {
         return capacity - ticketCarMap.size();
     }
 
-    protected boolean findCarByTicket(Ticket ticket) {
+    protected boolean hasCarByTicket(Ticket ticket) {
         return ticketCarMap.containsKey(ticket);
     }
 
