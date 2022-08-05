@@ -9,11 +9,7 @@ public class GraduateParkingBoy extends AbstractParkingBoy {
         super(parkingLots);
     }
 
-    Option<ParkingLot> findParkingLot() {
-        return this.parkingLots.find(this::findNotFullParkingLot);
-    }
-
-    private Boolean findNotFullParkingLot(ParkingLot parkingLot) {
-        return !parkingLot.isFull();
+    Option<ParkingLot> findAvailableParkingLot() {
+        return this.parkingLots.find(parkingLot -> !parkingLot.isFull());
     }
 }

@@ -11,11 +11,11 @@ public class SmartParkingBoy extends AbstractParkingBoy {
         super(parkingLots);
     }
 
-    Option<ParkingLot> findParkingLot() {
+    Option<ParkingLot> findAvailableParkingLot() {
         return this.getMaxRemainingParkingLot(this.parkingLots);
     }
 
     private Option<ParkingLot> getMaxRemainingParkingLot(List<ParkingLot> parkingLots) {
-        return parkingLots.maxBy(Comparator.comparingInt(ParkingLot::getUsefulTilesRemaining));
+        return parkingLots.maxBy(Comparator.comparingInt(ParkingLot::getRemainingCount));
     }
 }

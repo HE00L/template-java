@@ -1,66 +1,48 @@
 package org.oobootcamp.core.domain;
 
-import io.vavr.collection.HashSet;
-import io.vavr.collection.Set;
-import io.vavr.control.Option;
-import io.vavr.control.Try;
-import org.oobootcamp.core.exception.ParkCarException;
-import org.oobootcamp.core.exception.PickUpCarException;
+import org.oobootcamp.core.exception.InvalidTicketException;
+import org.oobootcamp.core.exception.ParkingLotFullException;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ParkingLot {
-    public static final int NO_REMAINING = 0;
-    private Set<ParkingTile> parkedTiles;
-    private int remainingCount;
+    public static final int NO_USED = 0;
+    private final Map<Ticket, Car> ticketCarMap;
     private final int capacity;
 
     public ParkingLot(int capacity) {
         this.capacity = capacity;
-        this.remainingCount = capacity;
-        this.parkedTiles = HashSet.empty();
+        this.ticketCarMap = new HashMap<>(capacity);
     }
 
     public Ticket parkingCar(Car car) {
         if (isFull())
-            throw new ParkCarException();
-        return ParkAndGetTicket(car);
-    }
-
-    public Car pickUpCar(Ticket ticket) {
-        return Try.of(() -> pickUp(ticket)).getOrElseThrow(PickUpCarException::new);
-    }
-
-    public int getUsefulTilesRemaining() {
-        return remainingCount;
-    }
-
-    protected Ticket ParkAndGetTicket(Car car) {
-        remainingCount--;
+            throw new ParkingLotFullException();
         Ticket ticket = new Ticket();
-        parkedTiles = parkedTiles.add(new ParkingTile(ticket, car));
+        ticketCarMap.put(ticket, car);
         return ticket;
     }
 
-    private Car pickUp(Ticket ticket) {
-        if (isEmpty())
-            throw new PickUpCarException();
-        return findParkingTileByTicket(ticket).map(this::freeTile).getOrElseThrow(ParkCarException::new);
+    public Car pickUpCar(Ticket ticket) {
+        if (isEmpty() || !findCarByTicket(ticket))
+            throw new InvalidTicketException();
+        return ticketCarMap.remove(ticket);
     }
 
-    private Car freeTile(ParkingTile tile) {
-        remainingCount++;
-        parkedTiles = parkedTiles.remove(tile);
-        return tile.getCar();
+    public int getRemainingCount() {
+        return capacity - ticketCarMap.size();
     }
 
-    protected Option<ParkingTile> findParkingTileByTicket(Ticket ticket) {
-        return parkedTiles.find(tile -> tile.getTicket().equals(ticket));
+    protected boolean findCarByTicket(Ticket ticket) {
+        return ticketCarMap.containsKey(ticket);
     }
 
     protected boolean isFull() {
-        return remainingCount == NO_REMAINING;
+        return ticketCarMap.size() == capacity;
     }
 
     private boolean isEmpty() {
-        return remainingCount == capacity;
+        return ticketCarMap.size() == NO_USED;
     }
 }

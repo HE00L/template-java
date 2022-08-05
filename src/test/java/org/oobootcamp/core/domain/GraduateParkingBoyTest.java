@@ -1,22 +1,25 @@
 package org.oobootcamp.core.domain;
 
 import io.vavr.collection.List;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.oobootcamp.core.exception.ParkCarException;
-import org.oobootcamp.core.exception.PickUpCarException;
+import org.oobootcamp.core.exception.ParkingLotFullException;
+import org.oobootcamp.core.exception.InvalidTicketException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GraduateParkingBoyTest {
 
     //    Given 停车小弟 管理2个停车场,两个停车场都有剩余停车位 When 停车小弟 停车, Then 停入第一个停车场，停车成功后拿到票
     @Test
+
     public void should_return_ticket_when_parking_boy_park_given_manage_two_parking_lot_both_has_remainingCount() {
         ParkingLot firstParkingLot = new ParkingLot(2);
         ParkingLot secondParkingLot = new ParkingLot(2);
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
-        ParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
+        AbstractParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
 
         Car car = new Car();
         Ticket expectedTicket = graduateParkingBoy.parkingCar(car);
@@ -31,7 +34,7 @@ public class GraduateParkingBoyTest {
         ParkingLot firstParkingLot = new ParkingLot(1);
         ParkingLot secondParkingLot = new ParkingLot(2);
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
-        ParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
+        AbstractParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
 
         Car car1 = new Car();
         firstParkingLot.parkingCar(car1);
@@ -48,7 +51,7 @@ public class GraduateParkingBoyTest {
         ParkingLot firstParkingLot = new ParkingLot(1);
         ParkingLot secondParkingLot = new ParkingLot(1);
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
-        ParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
+        AbstractParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
 
         Car car1 = new Car();
         Car car2 = new Car();
@@ -56,7 +59,7 @@ public class GraduateParkingBoyTest {
         secondParkingLot.parkingCar(car2);
 
         Car car3 = new Car();
-        assertThat(assertThrows(ParkCarException.class, () -> graduateParkingBoy.parkingCar(car3)).getLocalizedMessage()).isEqualTo("停车场已满");
+        assertThat(assertThrows(ParkingLotFullException.class, () -> graduateParkingBoy.parkingCar(car3)).getLocalizedMessage()).isEqualTo("停车场已满");
     }
 
     //    - Given 停车小弟 管理2个停车场,小弟有一张有效票,票是第一个停车场的 When 停车小弟 取车, Then 取车成功
@@ -65,7 +68,7 @@ public class GraduateParkingBoyTest {
         ParkingLot firstParkingLot = new ParkingLot(2);
         ParkingLot secondParkingLot = new ParkingLot(2);
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
-        ParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
+        AbstractParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
 
         Car car = new Car();
         Ticket firstParkingLotTicket = graduateParkingBoy.parkingCar(car);
@@ -79,7 +82,7 @@ public class GraduateParkingBoyTest {
         ParkingLot firstParkingLot = new ParkingLot(2);
         ParkingLot secondParkingLot = new ParkingLot(2);
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
-        ParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
+        AbstractParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
 
         Car car = new Car();
         Ticket secondParkingLotTicket = secondParkingLot.parkingCar(car);
@@ -97,9 +100,9 @@ public class GraduateParkingBoyTest {
 
         ParkingLot thirdParkingLot = new ParkingLot(1);
         Ticket thirdTicket = thirdParkingLot.parkingCar(car);
-        ParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
+        AbstractParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
 
-        assertThat(assertThrows(PickUpCarException.class, () -> graduateParkingBoy.pickUpCar(thirdTicket)).getLocalizedMessage()).isEqualTo("票无效");
+        assertThat(assertThrows(InvalidTicketException.class, () -> graduateParkingBoy.pickUpCar(thirdTicket)).getLocalizedMessage()).isEqualTo("票无效");
     }
 
     //    - Given 停车小弟 管理2个停车场,小弟有一张已经使用的票 When 停车小弟 取车, Then 取车失败，提示：取车失败
@@ -110,11 +113,11 @@ public class GraduateParkingBoyTest {
         ParkingLot secondParkingLot = new ParkingLot(2);
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
 
-        ParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
+        AbstractParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
         Ticket firstParkingLotTicket = graduateParkingBoy.parkingCar(car);
 
         assertThat(graduateParkingBoy.pickUpCar(firstParkingLotTicket)).isEqualTo(car);
-        assertThat(assertThrows(PickUpCarException.class, () -> graduateParkingBoy.pickUpCar(firstParkingLotTicket)).getLocalizedMessage()).isEqualTo("票无效");
+        assertThat(assertThrows(InvalidTicketException.class, () -> graduateParkingBoy.pickUpCar(firstParkingLotTicket)).getLocalizedMessage()).isEqualTo("票无效");
     }
 
     //  - Given 停车小弟 管理2个停车场,小弟没有票 When 停车小弟 取车, Then 取车失败，提示：票无效
@@ -123,7 +126,16 @@ public class GraduateParkingBoyTest {
         ParkingLot firstParkingLot = new ParkingLot(2);
         ParkingLot secondParkingLot = new ParkingLot(2);
         List<ParkingLot> parkingLots = List.of(firstParkingLot, secondParkingLot);
-        ParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
-        assertThat(assertThrows(PickUpCarException.class, () -> graduateParkingBoy.pickUpCar(null)).getLocalizedMessage()).isEqualTo("票无效");
+        AbstractParkingBoy graduateParkingBoy = new GraduateParkingBoy(parkingLots);
+        assertThat(assertThrows(InvalidTicketException.class, () -> graduateParkingBoy.pickUpCar(null)).getLocalizedMessage()).isEqualTo("票无效");
     }
+
+    @Nested
+    class AC1{
+        @Test
+        void AC_Example(){
+            assertTrue(true);
+        }
+    }
+
 }

@@ -1,8 +1,8 @@
 package org.oobootcamp.core.domain;
 
 import org.junit.jupiter.api.Test;
-import org.oobootcamp.core.exception.ParkCarException;
-import org.oobootcamp.core.exception.PickUpCarException;
+import org.oobootcamp.core.exception.ParkingLotFullException;
+import org.oobootcamp.core.exception.InvalidTicketException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -32,7 +32,7 @@ public class ParkingLotTest {
         Car car1 = new Car();
         parkingLot.parkingCar(car1);
         Car car2 = new Car();
-        assertThat(assertThrows(ParkCarException.class, () -> parkingLot.parkingCar(car2)).getLocalizedMessage()).isEqualTo("停车场已满");
+        assertThat(assertThrows(ParkingLotFullException.class, () -> parkingLot.parkingCar(car2)).getLocalizedMessage()).isEqualTo("停车场已满");
     }
 
     //- Given 有票，号码为一号, When 普通停车用户自助取车, Then 普通停车用户 取一号车位的车成功
@@ -62,7 +62,7 @@ public class ParkingLotTest {
         Ticket ticket = parkingLot.parkingCar(car);
         parkingLot.parkingCar(car2);
         assertThat(parkingLot.pickUpCar(ticket)).isEqualTo(car);
-        assertThat(assertThrows(PickUpCarException.class, () -> parkingLot.pickUpCar(ticket)).getLocalizedMessage()).isEqualTo("票无效");
+        assertThat(assertThrows(InvalidTicketException.class, () -> parkingLot.pickUpCar(ticket)).getLocalizedMessage()).isEqualTo("票无效");
     }
 
     // - Given 无票, When 普通停车用户自助取车, Then 普通停车用户 取车失败
@@ -71,7 +71,7 @@ public class ParkingLotTest {
         ParkingLot parkingLot = new ParkingLot(1);
         Car car = new Car();
         parkingLot.parkingCar(car);
-        assertThat(assertThrows(PickUpCarException.class, () -> parkingLot.pickUpCar(null)).getLocalizedMessage()).isEqualTo("票无效");
+        assertThat(assertThrows(InvalidTicketException.class, () -> parkingLot.pickUpCar(null)).getLocalizedMessage()).isEqualTo("票无效");
     }
 
 }
