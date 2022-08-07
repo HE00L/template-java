@@ -1,4 +1,4 @@
 package org.oobootcamp.core.domain;
 
-public record Ticket() {
+public class Ticket {
 }

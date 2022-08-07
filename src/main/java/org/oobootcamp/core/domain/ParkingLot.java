@@ -6,7 +6,7 @@ import org.oobootcamp.core.exception.ParkingLotFullException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ParkingLot {
+public class ParkingLot implements ParkPickInterface{
     public static final int NO_USED = 0;
     private final Map<Ticket, Car> ticketCarMap;
     private final int capacity;
@@ -25,7 +25,7 @@ public class ParkingLot {
     }
 
     public Car pickUpCar(Ticket ticket) {
-        if (isEmpty() || !hasCarByTicket(ticket))
+        if (isEmpty() || !hasCar(ticket))
             throw new InvalidTicketException();
         return ticketCarMap.remove(ticket);
     }
@@ -34,11 +34,11 @@ public class ParkingLot {
         return capacity - ticketCarMap.size();
     }
 
-    protected boolean hasCarByTicket(Ticket ticket) {
+    public Boolean hasCar(Ticket ticket) {
         return ticketCarMap.containsKey(ticket);
     }
 
-    protected boolean isFull() {
+    public Boolean isFull() {
         return ticketCarMap.size() == capacity;
     }
 
