@@ -12,7 +12,8 @@ public class SmartParkingBoy extends ParkingBoy {
     }
 
     Option<ParkingLot> findAvailableParkingLot() {
-        return this.getMaxRemainingParkingLot(this.parkingLots);
+        return this.parkingLots.find(parkingLot -> !parkingLot.isFull()).isEmpty() ? Option.none()
+                : this.getMaxRemainingParkingLot(this.parkingLots);
     }
 
     private Option<ParkingLot> getMaxRemainingParkingLot(List<ParkingLot> parkingLots) {
