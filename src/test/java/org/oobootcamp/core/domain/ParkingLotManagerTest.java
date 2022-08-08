@@ -20,10 +20,10 @@ public class ParkingLotManagerTest {
         ParkingBoy graduateParkingBoy = new GraduateParkingBoy(List.of(new ParkingLot(1)));
         ParkingLot parkingLot = new ParkingLot(1);
 
-        ParkingLotManager ParkingLotManager = new ParkingLotManager(
+        ParkingManager ParkingManager = new ParkingManager(
                 List.of(parkingLot, graduateParkingBoy, smartParkingBoy));
         Car car = new Car();
-        Ticket ticket = ParkingLotManager.parkingCar(car);
+        Ticket ticket = ParkingManager.parkingCar(car);
         assertThat(ticket).isNotNull();
         assertThat(parkingLot.pickUpCar(ticket)).isEqualTo(car);
     }
@@ -35,10 +35,10 @@ public class ParkingLotManagerTest {
         ParkingBoy graduateParkingBoy = new GraduateParkingBoy(List.of(new ParkingLot(1)));
         ParkingLot parkingLot = new ParkingLot(0);
 
-        ParkingLotManager ParkingLotManager = new ParkingLotManager(
+        ParkingManager ParkingManager = new ParkingManager(
                 List.of(parkingLot, graduateParkingBoy, smartParkingBoy));
         Car car = new Car();
-        Ticket ticket = ParkingLotManager.parkingCar(car);
+        Ticket ticket = ParkingManager.parkingCar(car);
         assertThat(ticket).isNotNull();
         assertThat(graduateParkingBoy.pickUpCar(ticket)).isEqualTo(car);
     }
@@ -51,10 +51,10 @@ public class ParkingLotManagerTest {
         ParkingBoy graduateParkingBoy = new GraduateParkingBoy(List.of(new ParkingLot(0)));
         ParkingLot parkingLot = new ParkingLot(0);
 
-        ParkingLotManager ParkingLotManager = new ParkingLotManager(
+        ParkingManager ParkingManager = new ParkingManager(
                 List.of(parkingLot, graduateParkingBoy, smartParkingBoy));
         Car car = new Car();
-        Ticket ticket = ParkingLotManager.parkingCar(car);
+        Ticket ticket = ParkingManager.parkingCar(car);
         assertThat(ticket).isNotNull();
         assertThat(smartParkingBoy.pickUpCar(ticket)).isEqualTo(car);
     }
@@ -67,10 +67,10 @@ public class ParkingLotManagerTest {
         ParkingBoy graduateParkingBoy = new GraduateParkingBoy(List.of(new ParkingLot(1)));
         ParkingLot parkingLot = new ParkingLot(1);
 
-        ParkingLotManager ParkingLotManager = new ParkingLotManager(
+        ParkingManager ParkingManager = new ParkingManager(
                 List.of(graduateParkingBoy, parkingLot, smartParkingBoy));
         Car car = new Car();
-        Ticket ticket = ParkingLotManager.parkingCar(car);
+        Ticket ticket = ParkingManager.parkingCar(car);
         assertThat(ticket).isNotNull();
         assertThat(graduateParkingBoy.pickUpCar(ticket)).isEqualTo(car);
     }
@@ -83,10 +83,10 @@ public class ParkingLotManagerTest {
         ParkingBoy graduateParkingBoy = new GraduateParkingBoy(List.of(new ParkingLot(1)));
         ParkingLot parkingLot = new ParkingLot(1);
         smartParkingBoy.parkingCar(new Car());
-        ParkingLotManager ParkingLotManager = new ParkingLotManager(
+        ParkingManager ParkingManager = new ParkingManager(
                 List.of(smartParkingBoy, graduateParkingBoy, parkingLot));
         Car car = new Car();
-        Ticket ticket = ParkingLotManager.parkingCar(car);
+        Ticket ticket = ParkingManager.parkingCar(car);
         assertThat(ticket).isNotNull();
         assertThat(graduateParkingBoy.pickUpCar(ticket)).isEqualTo(car);
     }
@@ -101,10 +101,10 @@ public class ParkingLotManagerTest {
         smartParkingBoy.parkingCar(new Car());
         graduateParkingBoy.parkingCar(new Car());
         parkingLot.parkingCar(new Car());
-        ParkingLotManager ParkingLotManager = new ParkingLotManager(
+        ParkingManager ParkingManager = new ParkingManager(
                 List.of(graduateParkingBoy, parkingLot, smartParkingBoy));
 
-        assertThat(assertThrows(ParkingLotFullException.class, () -> ParkingLotManager.parkingCar(new Car())).getLocalizedMessage()).isEqualTo("停车场已满");
+        assertThat(assertThrows(ParkingLotFullException.class, () -> ParkingManager.parkingCar(new Car())).getLocalizedMessage()).isEqualTo("停车场已满");
     }
 
     // Given 停车经理管理1个毕业小弟、1个停车场、1个聪明小弟，毕业小弟管理1个停车场，聪明小弟有1个停车场, 停车经理有一张有效票, 票是毕业小弟停车场的 When 停车经理 取车, Then 取车成功
@@ -117,10 +117,10 @@ public class ParkingLotManagerTest {
 
         Car car = new Car();
         Ticket ticket = graduateParkingBoy.parkingCar(car);
-        ParkingLotManager ParkingLotManager = new ParkingLotManager(
+        ParkingManager ParkingManager = new ParkingManager(
                 List.of(graduateParkingBoy, parkingLot, smartParkingBoy));
 
-        assertThat(ParkingLotManager.pickUpCar(ticket)).isEqualTo(car);
+        assertThat(ParkingManager.pickUpCar(ticket)).isEqualTo(car);
     }
 
     // Given 停车经理管理1个毕业小弟、1个停车场、1个聪明小弟，毕业小弟管理1个停车场，聪明小弟有1个停车场, 停车经理有一张有效票, 票是停车经理停车场的 When 停车经理 取车, Then 取车成功
@@ -133,10 +133,10 @@ public class ParkingLotManagerTest {
 
         Car car = new Car();
         Ticket ticket = parkingLot.parkingCar(car);
-        ParkingLotManager ParkingLotManager = new ParkingLotManager(
+        ParkingManager ParkingManager = new ParkingManager(
                 List.of(graduateParkingBoy, parkingLot, smartParkingBoy));
 
-        assertThat(ParkingLotManager.pickUpCar(ticket)).isEqualTo(car);
+        assertThat(ParkingManager.pickUpCar(ticket)).isEqualTo(car);
     }
 
     // Given 停车经理管理1个毕业小弟、1个停车场、1个聪明小弟，毕业小弟管理1个停车场，聪明小弟有1个停车场, 停车经理有一张有效票, 票是聪明小弟停车场的 When 停车经理 取车, Then 取车成功
@@ -149,10 +149,10 @@ public class ParkingLotManagerTest {
 
         Car car = new Car();
         Ticket ticket = smartParkingBoy.parkingCar(car);
-        ParkingLotManager ParkingLotManager = new ParkingLotManager(
+        ParkingManager ParkingManager = new ParkingManager(
                 List.of(graduateParkingBoy, parkingLot, smartParkingBoy));
 
-        assertThat(ParkingLotManager.pickUpCar(ticket)).isEqualTo(car);
+        assertThat(ParkingManager.pickUpCar(ticket)).isEqualTo(car);
     }
 
     // Given 停车经理管理1个毕业小弟、1个停车场、1个聪明小弟，毕业小弟管理1个停车场，聪明小弟有1个停车场, 停车经理有一张已经使用的票 When 停车经理 取车, Then 取车失败，提示：票无效
@@ -165,11 +165,11 @@ public class ParkingLotManagerTest {
 
         Car car = new Car();
         Ticket ticket = smartParkingBoy.parkingCar(car);
-        ParkingLotManager ParkingLotManager = new ParkingLotManager(
+        ParkingManager ParkingManager = new ParkingManager(
                 List.of(graduateParkingBoy, parkingLot, smartParkingBoy));
 
-        assertThat(ParkingLotManager.pickUpCar(ticket)).isEqualTo(car);
-        assertThat(assertThrows(InvalidTicketException.class, () -> ParkingLotManager.pickUpCar(ticket)).getLocalizedMessage()).isEqualTo("票无效");
+        assertThat(ParkingManager.pickUpCar(ticket)).isEqualTo(car);
+        assertThat(assertThrows(InvalidTicketException.class, () -> ParkingManager.pickUpCar(ticket)).getLocalizedMessage()).isEqualTo("票无效");
     }
 
     // Given 停车经理管理1个毕业小弟、1个停车场、1个聪明小弟，毕业小弟管理1个停车场，聪明小弟有1个停车场,  停车经理有一张第三方的停车场的票 When 停车经理 取车, Then 取车失败，提示：票无效
@@ -182,11 +182,11 @@ public class ParkingLotManagerTest {
 
         Car car = new Car();
         smartParkingBoy.parkingCar(car);
-        ParkingLotManager ParkingLotManager = new ParkingLotManager(
+        ParkingManager ParkingManager = new ParkingManager(
                 List.of(graduateParkingBoy, parkingLot, smartParkingBoy));
         ParkingLot thirdParkingLot = new ParkingLot(1);
         Ticket thirdTicket = thirdParkingLot.parkingCar(new Car());
-        assertThat(assertThrows(InvalidTicketException.class, () -> ParkingLotManager.pickUpCar(thirdTicket)).getLocalizedMessage()).isEqualTo("票无效");
+        assertThat(assertThrows(InvalidTicketException.class, () -> ParkingManager.pickUpCar(thirdTicket)).getLocalizedMessage()).isEqualTo("票无效");
     }
 
     // Given Given 停车经理管理1个毕业小弟、1个停车场、1个聪明小弟，毕业小弟管理1个停车场，聪明小弟有1个停车场, 停车经理没有票 When 停车经理取车, Then 取车失败，提示：票无效
@@ -199,8 +199,8 @@ public class ParkingLotManagerTest {
 
         Car car = new Car();
         smartParkingBoy.parkingCar(car);
-        ParkingLotManager ParkingLotManager = new ParkingLotManager(
+        ParkingManager ParkingManager = new ParkingManager(
                 List.of(graduateParkingBoy, parkingLot, smartParkingBoy));
-        assertThat(assertThrows(InvalidTicketException.class, () -> ParkingLotManager.pickUpCar(null)).getLocalizedMessage()).isEqualTo("票无效");
+        assertThat(assertThrows(InvalidTicketException.class, () -> ParkingManager.pickUpCar(null)).getLocalizedMessage()).isEqualTo("票无效");
     }
 }

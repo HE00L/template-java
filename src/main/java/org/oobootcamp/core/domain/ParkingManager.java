@@ -4,11 +4,11 @@ import io.vavr.collection.List;
 import org.oobootcamp.core.exception.InvalidTicketException;
 import org.oobootcamp.core.exception.ParkingLotFullException;
 
-public class ParkingLotManager {
+public class ParkingManager {
 
     List<ParkPickInterface> parkingBoysAndParkingLots;
 
-    public ParkingLotManager(List<ParkPickInterface> parkingBoysAndParkingLots) {
+    public ParkingManager(List<ParkPickInterface> parkingBoysAndParkingLots) {
         this.parkingBoysAndParkingLots = parkingBoysAndParkingLots;
     }
 
